@@ -1,0 +1,288 @@
+
+  <div style="text-align:center">
+    <h1>
+      Manage ToDos
+    </h1>
+  </div>
+    
+   
+  <br/>
+  <Table width="100%" border="0" >
+    <tr>
+        <td width="33%">
+            <button (click)="removeAllToDos()">Delete all ToDos</button>
+        </td>
+        <td align="center" width="33%">
+            <label for="limit">Limit: </label><input type="number" name="limit" [(ngModel)]="limit" min="1" [attr.max]="[_ToDoList.length]" step="1" placeholder="Limit">
+            <label for="page">Page: </label><input type="number" name="page" [(ngModel)]="page" min="1" [attr.max]="[numberOfBooks]" step="1" placeholder="Page">
+        </td>
+        <td width="33%"> 
+
+        </td>
+    </tr>
+    
+    </Table>
+    <Table  border="1" >
+            <tr id="hide-filter" style="border: 0;">
+        
+                    <td colspan="100">
+                        <div align="right"><button  *ngIf="!showFilter" (click)="displayFilter()"><b>Show Filter Panel</b><img width="15" height="15" src="./assets/filter.png"/></button></div>
+            </td>
+                
+                </tr>
+        <tr id="show-filter"  style="background-color:  yellow; display: none;">
+        <th style="vertical-align: top" *ngFor="let key of objectKeys(defaultToDo);let column of columns;let i = index" align="center">
+            <div *ngIf="type(defaultToDo[key]) !== 'boolean'" >
+                <input type="checkbox" [(ngModel)]="customize[key]"/>Customize
+            </div>
+            <div *ngIf="customize[key]; else nocustomize">
+                    <div align="left" *ngIf="type(defaultToDo[key]) == 'number' && !this.propEnumMap[key] ">
+                        <select name="{{'custFilterOption1_'+key}}" [(ngModel)]="custFilterOption1[key]" ><option [ngValue]="value" *ngFor="let value of numberFilterOptions">{{value}}</option></select><br>
+                        <input  [disabled]="custFilterOption1[key]==='empty' || custFilterOption1[key]==='not empty'" name="{{'custFilter1_'+key}}" [(ngModel)]="custFilterToDo1[key]" /><br>
+                        <select name="{{'custFilterOperator_'+key}}" [(ngModel)]="custFilterOperator[key]" ><option [ngValue]="'AND'">AND</option><option [ngValue]="'OR'">OR</option></select><br>
+                        <select name="{{'custFilterOption2_'+key}}" [(ngModel)]="custFilterOption2[key]" ><option [ngValue]="value" *ngFor="let value of numberFilterOptions">{{value}}</option></select><br>
+                        <input  [disabled]="custFilterOption2[key]==='empty' || custFilterOption2[key]==='not empty'" name="{{'custFilter2_'+key}}" [(ngModel)]="custFilterToDo2[key]" />
+                    </div>
+                    <div align="left" *ngIf="type(defaultToDo[key].getMonth) === 'function'">
+                        <select name="{{'custFilterOption1_'+key}}" [(ngModel)]="custFilterOption1[key]" ><option [ngValue]="value" *ngFor="let value of dateFilterOptions">{{value}}</option></select><br>
+                        <material-datepicker [disabled]="custFilterOption1[key]==='empty' || custFilterOption1[key]==='not empty'" dateFormat="MMM DD, YYYY" [(date)]="custFilterToDo1[key]"  ></material-datepicker><br>
+                        <select name="{{'custFilterOperator_'+key}}" [(ngModel)]="custFilterOperator[key]" ><option [ngValue]="'AND'">AND</option><option [ngValue]="'OR'">OR</option></select><br>
+                        <select name="{{'custFilterOption2_'+key}}" [(ngModel)]="custFilterOption2[key]" ><option [ngValue]="value" *ngFor="let value of dateFilterOptions">{{value}}</option></select><br>
+                        <material-datepicker [disabled]="custFilterOption2[key]==='empty' || custFilterOption2[key]==='not empty'" dateFormat="MMM DD, YYYY" [(date)]="custFilterToDo2[key]"  ></material-datepicker>
+                    </div>
+                    <div align="left" *ngIf="(this.propEnumMap[key] && type(propEnumMap[key].values[0]) === 'number')">
+                        <select name="{{'custFilterOption1_'+key}}" [(ngModel)]="custFilterOption1[key]" ><option [ngValue]="value" *ngFor="let value of (propEnumMap[key].multiple?numberArrayFilterOptions:numberFilterOptions)">{{value}}</option></select><br>
+                        <input  [disabled]="custFilterOption1[key]==='empty' || custFilterOption1[key]==='not empty'" name="{{'custFilter1_'+key}}" [(ngModel)]="custFilterToDo1[key]" /><br>
+                        <select name="{{'custFilterOperator_'+key}}" [(ngModel)]="custFilterOperator[key]" ><option [ngValue]="'AND'">AND</option><option [ngValue]="'OR'">OR</option></select><br>
+                        <select name="{{'custFilterOption2_'+key}}" [(ngModel)]="custFilterOption2[key]" ><option [ngValue]="value" *ngFor="let value of (propEnumMap[key].multiple?numberArrayFilterOptions:numberFilterOptions)">{{value}}</option></select><br>
+                        <input  [disabled]="custFilterOption2[key]==='empty' || custFilterOption2[key]==='not empty'" name="{{'custFilter2_'+key}}" [(ngModel)]="custFilterToDo2[key]" />
+                    </div>
+                    <div align="left" *ngIf="type(defaultToDo[key]) == 'string' && !this.propEnumMap[key]">
+                        <select name="{{'custFilterOption1_'+key}}" [(ngModel)]="custFilterOption1[key]" ><option [ngValue]="value" *ngFor="let value of textFilterOptions">{{value}}</option></select><br>
+                        <input  [disabled]="custFilterOption1[key]==='empty' || custFilterOption1[key]==='not empty'" name="{{'custFilter1_'+key}}" [(ngModel)]="custFilterToDo1[key]" /><br>
+                        <select name="{{'custFilterOperator_'+key}}" [(ngModel)]="custFilterOperator[key]" ><option [ngValue]="'AND'">AND</option><option [ngValue]="'OR'">OR</option></select><br>
+                        <select name="{{'custFilterOption2_'+key}}" [(ngModel)]="custFilterOption2[key]" ><option [ngValue]="value" *ngFor="let value of textFilterOptions">{{value}}</option></select><br>
+                        <input  [disabled]="custFilterOption2[key]==='empty' || custFilterOption2[key]==='not empty'" name="{{'custFilter2_'+key}}" [(ngModel)]="custFilterToDo2[key]" />
+                    </div>
+                    <div align="left" *ngIf="(this.propEnumMap[key] && type(propEnumMap[key].values[0]) === 'string')">
+                        <select name="{{'custFilterOption1_'+key}}" [(ngModel)]="custFilterOption1[key]" ><option [ngValue]="value" *ngFor="let value of (propEnumMap[key].multiple?textArrayFilterOptions:textFilterOptions)">{{value}}</option></select><br>
+                        <input  [disabled]="custFilterOption1[key]==='empty' || custFilterOption1[key]==='not empty'" name="{{'custFilter1_'+key}}" [(ngModel)]="custFilterToDo1[key]" /><br>
+                        <select name="{{'custFilterOperator_'+key}}" [(ngModel)]="custFilterOperator[key]" ><option [ngValue]="'AND'">AND</option><option [ngValue]="'OR'">OR</option></select><br>
+                        <select name="{{'custFilterOption2_'+key}}" [(ngModel)]="custFilterOption2[key]" ><option [ngValue]="value" *ngFor="let value of (propEnumMap[key].multiple?textArrayFilterOptions:textFilterOptions)">{{value}}</option></select><br>
+                        <input  [disabled]="custFilterOption2[key]==='empty' || custFilterOption2[key]==='not empty'" name="{{'custFilter2_'+key}}" [(ngModel)]="custFilterToDo2[key]" />
+                    </div>
+            </div>
+            <ng-template #nocustomize>
+                <div *ngIf="propEnumMap.hasOwnProperty(key); else notEnum">
+                    
+                        <select name="{{'filter_'+key}}" [(ngModel)]="filterToDo['array_'+key]" multiple="multiple" size="5"><option [ngValue]="type(propEnumMap[key].values[0])==='string'?'All':-1">All</option><option [ngValue]="value" *ngFor="let value of propEnumMap[key].values">{{value}}</option></select>
+                        
+                </div>
+                <ng-template #notEnum>
+                    <div *ngIf="key === 'id'; else notid">
+                            <select name="{{'filter_'+key}}" [(ngModel)]="filterToDo['array_'+key]" multiple="multiple" size="5"><option [ngValue]="-1">All</option><option [ngValue]="value" *ngFor="let value of valuesForObjectArray(_ToDoList,key)">{{value}}</option></select>
+                        <!--<input name="'filter'+key" type="number" [(ngModel)]="filterToDo[key]" min="1" [attr.max]="5" step="1" placeholder="{{column}}"/> -->
+                    </div>
+                    <ng-template #notid>
+                            <div *ngIf="type(defaultToDo[key]) == 'number'">
+                                <select name="{{'filter_'+key}}" [(ngModel)]="filterToDo['array_'+key]" multiple="multiple" size="5"><option [ngValue]="-1">All</option><option [ngValue]="value" *ngFor="let value of valuesForObjectArray(_ToDoList,key)">{{value}}</option></select>
+                                <!--<input name="'filter'+key" type="number" [(ngModel)]="filterToDo[key]" placeholder="{{column}}"/>-->
+                            </div>
+                            <div *ngIf="type(defaultToDo[key]) == 'string'">
+                                <input  name="{{'filter_'+key}}" [(ngModel)]="filterToDo[key]" placeholder="{{initCap(column)}}"/>
+                            </div>
+                            <div *ngIf="type(defaultToDo[key]) == 'boolean'">
+                                    <select name="{{'filter_'+key}}" [(ngModel)]="filterToDo['array_'+key]" multiple="multiple" size="5"><option [ngValue]="'All'" >All</option><option [ngValue]="'Yes'">Yes</option><option [ngValue]="'No'">No</option></select>
+                                <!--<input type="radio" name="'filter'+key" [value]="true" [(ngModel)]="filterToDo[key]"> Yes
+                                <input type="radio" name="'filter'+key" [value]="false" [(ngModel)]="filterToDo[key]"> No-->
+                            </div>
+                            <div *ngIf="type(defaultToDo[key].getMonth) === 'function'">
+                                <table>
+                                    <tr>
+                                       <td align="right">From:</td>
+                                       <td><material-datepicker dateFormat="MMM DD, YYYY" [(date)]="filterToDo['from_'+key]"  ></material-datepicker></td> 
+                                    </tr>
+                                    <tr>
+                                        <td align="right">To:</td>
+                                        <td><material-datepicker  dateFormat="MMM DD, YYYY" [(date)]="filterToDo['to_'+key]"  ></material-datepicker></td>
+                                    </tr>
+                                </table>
+                                  
+                            
+                            </div>
+                    </ng-template>
+                </ng-template>
+                
+            </ng-template>
+        </th>
+        <th>
+            
+            <button *ngIf="showFilter" (click)="hideFilter()"><b>Hide Filter Panel</b><img width="15" height="15" src="./assets/filter.png"/></button>
+        </th>
+    </tr>
+    
+    <tr style="color: white; background-color:  blue">
+      <td  *ngFor="let column of columns" align="center"><span style="cursor: pointer" (click)="sortColumn(n)" ><b>{{column}}<img  src="./assets/{{activeSortColIndex!==n?'default':(activeSortFlag?'up':'down')}}_sort.png"/></b></span></td>
+      <td  align="center"><b>Action</b></td>
+    </tr>
+    
+    <tr *ngFor="let todo of _ToDoList | todoFilter:filters | orderBy: objectKeys(defaultToDo)[activeSortColIndex]: activeSortFlag| slice:(page-1)*limit:page*limit" >
+        
+        <td *ngFor="let key of objectKeys(defaultToDo);let i = index" >
+        <form [formGroup]="updateForm" novalidate>  
+          <div *ngIf="todo.id==updateID; else n">
+                
+              <div *ngIf="key==='id'; else edit">{{updateForm.controls.id.value}}
+              </div>
+              <ng-template #edit>
+                <div *ngIf="propEnumMap.hasOwnProperty(key); else notEnum">
+                  <div *ngIf="propEnumMap[key].multiple; else singleSelect">
+                      <select name="{{'update'+key}}" formControlName="{{key}}" multiple="multiple" size="5" ><option [ngValue]="value" *ngFor="let value of propEnumMap[key].values">{{value}}</option></select>
+                      <div style="color: red" *ngIf="checkRequired(updateForm,key)"> 
+                            "{{columns[i]}}" field is required. 
+                      </div>
+                  </div>
+                  <ng-template #singleSelect>
+                      <select name="{{'update'+key}}" formControlName="{{key}}"><option disabled selected value>Select {{columns[i]}}</option><option [ngValue]="value" *ngFor="let value of objectValues(propEnumMap[key].values)">{{value}}</option></select>
+                      <div style="color: red" *ngIf="checkRequired(updateForm,key)"> 
+                            "{{columns[i]}}" field is required. 
+                      </div>
+                    </ng-template>
+                </div>
+                <ng-template #notEnum>
+                  <div *ngIf="type(todo[key]) == 'number'">
+                      <input name="'update'+key" type="text" formControlName="{{key}}" />
+                      <div style="color: red" *ngIf="checkRequired(updateForm,key)"> 
+                            "{{columns[i]}}" field is required. 
+                      </div>
+                  </div>
+                  <div *ngIf="type(todo[key]) == 'string'">
+                      <input name="'update'+key" type="text" formControlName="{{key}}" />
+                      <div style="color: red" *ngIf="checkRequired(updateForm,key)"> 
+                            "{{columns[i]}}" field is required. 
+                      </div>
+                      <div style="color: red" *ngIf="checkMin(updateForm,key)"> 
+                        "{{columns[i]}}" field must be minimum {{minLength(key)}}character long. 
+                     </div>
+                     <div style="color: red" *ngIf="checkMax(updateForm,key)"> 
+                        "{{columns[i]}}" field must be maximum {{maxLength(key)}}character long. 
+                    </div>
+                  <div style="color: red" *ngIf="checkPattern(updateForm,key)"> 
+                        "{{columns[i]}}" field should follow {{pattern(key)}} pattern. 
+                  </div>
+                  </div>
+                  <div *ngIf="type(todo[key]) == 'boolean'">
+                      <input type="radio" name="'update'+key" [value]="true" formControlName="{{key}}"> Yes
+                      <input type="radio" name="'update'+key" [value]="false" formControlName="{{key}}"> No
+                  </div>
+                  <div *ngIf="type(todo[key].getMonth) === 'function'">
+                     
+                      <material-datepicker dateFormat="MMM DD, YYYY" formControlName="{{key}}"></material-datepicker>
+                  </div>
+                </ng-template>
+
+              </ng-template>
+           
+          </div>
+          
+          <ng-template #n>
+              <div *ngIf="type(todo[key]) == 'boolean'; else normal">
+                {{todo[key]?"Yes":"No"}}
+              </div>
+              <ng-template #normal>
+                    <div *ngIf="type(todo[key].getMonth) === 'function'; else notdate">{{ todo[key] | date: 'MMM d, y' }}</div>
+                    <ng-template #notdate>{{todo[key]}}</ng-template>
+                
+              </ng-template>
+          </ng-template>
+        </form>
+        </td>
+    
+        <td *ngIf="todo.id==updateID; else noupdate">
+          <button (click)="saveToDo()">Save</button>
+          <button (click)="cancelSave(todo.id)">Cancel</button>
+        </td>
+        <ng-template #noupdate>
+          <td><button (click)="removeToDo(todo.id)">Delete</button>
+          <button (click)="updateToDo(todo.id)">Update</button>
+          <button (click)="copyAddToDo(todo.id)">Copy</button>
+          </td>
+        </ng-template>
+    
+    </tr>
+
+    
+    <tr boarder="0">
+            
+        
+                <td *ngFor="let key of objectKeys(defaultToDo);let i = index" >
+                       <form [formGroup]="addForm" novalidate>
+                        <div *ngIf="propEnumMap.hasOwnProperty(key); else notEnum">
+                            <div *ngIf="propEnumMap[key].multiple; else singleSelect">
+                                <select name="'new'+key" formControlName="{{key}}" multiple="multiple" size="5" ><option [ngValue]="value" *ngFor="let value of propEnumMap[key].values">{{value}}</option></select>
+                                <div style="color: red" *ngIf="checkRequired(addForm,key)"> 
+                                    "{{columns[i]}}" field is required. 
+                              </div>
+                              
+                            </div>
+                            <ng-template #singleSelect>
+                                <select name="'new'+key" formControlName="{{key}}" ><option disabled selected value>Select {{columns[i]}}</option><option [ngValue]="value" *ngFor="let value of objectValues(propEnumMap[key].values)">{{value}}</option></select>
+                                <div style="color: red" *ngIf="checkRequired(addForm,key)"> 
+                                    "{{columns[i]}}" field is required. 
+                              </div>
+                            </ng-template>
+                        </div>
+                        <ng-template #notEnum>
+                            <div *ngIf="key==='id'; else show">
+                            </div>
+                            <ng-template #show>
+                                <div *ngIf="type(defaultToDo[key]) == 'number'">
+                                    <input type="text" name="'new'+key" formControlName="{{key}}" placeholder="{{initCap(columns[i])}}"/>
+                                    <div style="color: red" *ngIf="checkRequired(addForm,key)"> 
+                                        "{{columns[i]}}" field is required. 
+                                  </div>
+                                  
+                                </div>
+                                <div *ngIf="type(defaultToDo[key]) == 'string'">
+                                    <input type="text" name="'new'+key" formControlName="{{key}}" placeholder="{{initCap(columns[i])}}" />
+                                    <div style="color: red" *ngIf="checkRequired(addForm,key)"> 
+                                        "{{columns[i]}}" field is required. 
+                                  </div>
+                                  <div style="color: red" *ngIf="checkMin(addForm,key)"> 
+                                        "{{columns[i]}}" field must be minimum {{minLength(key)}}character long. 
+                                  </div>
+                                  <div style="color: red" *ngIf="checkMax(addForm,key)"> 
+                                        "{{columns[i]}}" field must be maximum {{maxLength(key)}}character long. 
+                                  </div>
+                                  <div style="color: red" *ngIf="checkPattern(addForm,key)"> 
+                                        "{{columns[i]}}" field should follow {{pattern(key)}} pattern. 
+                                  </div>
+                                </div>
+                                <div *ngIf="type(defaultToDo[key]) == 'boolean'">
+                                    <input type="radio" name="'new'+key" [value]="true" formControlName="{{key}}"> Yes
+                                    <input type="radio" name="'new'+key" [value]="false" formControlName="{{key}}"> No
+                                </div>
+                                <div *ngIf="type(defaultToDo[key].getMonth) === 'function'">
+                                        
+                                                
+                                   <material-datepicker dateFormat="MMM DD, YYYY" formControlName="{{key}}"   ></material-datepicker> 
+                                    
+                                </div>
+                            </ng-template>
+                          
+                        </ng-template>
+                    </form>
+                </td>
+            
+                <td>
+                    <button (click)="addNewToDo()">Add ToDo</button>
+                
+                </td>
+                
+            </tr>
+        
+    
+</Table>
+
+
+

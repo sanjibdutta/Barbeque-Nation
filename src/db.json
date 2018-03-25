@@ -1,0 +1,150 @@
+{
+  "ToDoList": [
+    {
+      "id": 1,
+      "description": "Discovery session for CR",
+      "time_to_complete_days": 10,
+      "depends_on_todo_ids": [],
+      "participants": [
+        "Geo leads",
+        "Squad team",
+        "E&C team",
+        "Product Owner"
+      ],
+      "completed": false,
+      "priority": 1,
+      "owner": "Sanjib Dutta",
+      "created": "2013-10-21T13:28:06.419Z"
+    },
+    {
+      "id": 2,
+      "description": "Story poiting and sprint planning",
+      "time_to_complete_days": 2,
+      "depends_on_todo_ids": [
+        1
+      ],
+      "participants": [
+        "Squad team",
+        "Product Owner",
+        "Iteration Manager"
+      ],
+      "completed": false,
+      "priority": 1,
+      "owner": "Sanjib Dutta",
+      "created": "18 Mar 2018 00:00:00 GMT"
+    },
+    {
+      "id": 3,
+      "description": "Develope code",
+      "time_to_complete_days": 40,
+      "depends_on_todo_ids": [
+        2
+      ],
+      "participants": [
+        "Squad team",
+        "Iteration Manager"
+      ],
+      "completed": false,
+      "priority": 1,
+      "owner": "Parul Rathi",
+      "created": "18 Mar 2018 00:00:00 GMT"
+    },
+    {
+      "id": 4,
+      "description": "Create test cases",
+      "time_to_complete_days": 5,
+      "depends_on_todo_ids": [
+        2
+      ],
+      "participants": [
+        "Squad team"
+      ],
+      "completed": false,
+      "priority": 1,
+      "owner": "Prashant Goel",
+      "created": "18 Mar 2018 00:00:00 GMT"
+    },
+    {
+      "id": 5,
+      "description": "IT testing",
+      "time_to_complete_days": 20,
+      "depends_on_todo_ids": [
+        3,
+        4
+      ],
+      "participants": [
+        "Geo leads",
+        "Squad team",
+        "E&C team",
+        "Product Owner"
+      ],
+      "completed": false,
+      "priority": 1,
+      "owner": "Prashant Goel",
+      "created": "18 Mar 2018 00:00:00 GMT"
+    },
+    {
+      "id": 6,
+      "description": "UAT testing",
+      "time_to_complete_days": 20,
+      "depends_on_todo_ids": [
+        3,
+        5
+      ],
+      "participants": [
+        "Geo leads",
+        "Squad team",
+        "Users",
+        "Product Owner"
+      ],
+      "completed": false,
+      "priority": 1,
+      "owner": "Sanjib Dutta",
+      "created": "18 Mar 2018 00:00:00 GMT"
+    },
+    {
+      "id": 7,
+      "description": "Create E&C meterials",
+      "time_to_complete_days": 5,
+      "depends_on_todo_ids": [
+        1
+      ],
+      "participants": [
+        "E&C team"
+      ],
+      "completed": false,
+      "priority": 1,
+      "owner": "Sanjib Dutta",
+      "created": "2018/03/15"
+    },
+    {
+      "id": 8,
+      "description": "Deploy solution",
+      "time_to_complete_days": 2,
+      "depends_on_todo_ids": [
+        6,
+        7
+      ],
+      "participants": [
+        "Geo leads",
+        "Squad team",
+        "ES team",
+        "Product Owner"
+      ],
+      "completed": true,
+      "priority": 1,
+      "owner": "Vikas Jain",
+      "created": "18 Mar 2018 00:00:00 GMT"
+    }
+  ],
+  "Config":[
+    {"columns": ["ID", "Description", "Complete by days","Depends on ToDo IDs","Participants","Completed","Priority","Owner", "Created on"]
+
+    },
+
+    {"propEnumMap": {"depends_on_todo_ids": {"values": [1,2,3,4,5,6,7,8,9,10], "multiple": true},"participants": {"values": ["Geo leads","Squad team","E&C team","Product Owner","user","ES team","Iteration Manager"],"multiple": true},"priority": {"values": [1, 2, 3,4], "multiple": false},"owner":{"values": ["Sanjib Dutta","Parul Rathi","Prashant Goel","Vikas Jain"],"multiple": false}}
+
+    }
+
+  ]
+}

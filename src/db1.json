@@ -1,0 +1,179 @@
+{
+  "ToDoList": [
+    {
+      "id": 1,
+      "summary": "Auto-approval logic appears defective",
+      "file_against": [
+        "squad3",
+        "squad7"
+      ],
+      "application": "ePricer",
+      "phase_detected": "Production",
+      "creation_date": "2018-03-21T18:30:00.000Z",
+      "owned_by": "Sanjib Dutta",
+      "owner_email": "d_sanjib@yahoo.com",
+      "impacted_IOT": [
+        "NA"
+      ],
+      "severity": "1-Critical",
+      "story_points": "M (3 pts)"
+    },
+    {
+      "id": 2,
+      "summary": "Offer not displayed on BP screen",
+      "file_against": [
+        "squad1"
+      ],
+      "application": "ePricer",
+      "phase_detected": "Production",
+      "creation_date": "2018-03-23T21:39:58.282Z",
+      "owned_by": "Sanjib Dutta",
+      "owner_email": "d_sanjib@yahoo.com",
+      "impacted_IOT": [
+        "AP/GCG"
+      ],
+      "severity": "2-Major",
+      "story_points": "XS (1 pt)"
+    }
+  ],
+  "Config": [
+    {
+      "columns": [
+        "ID",
+        "Summary",
+        "Filed Against",
+        "Application",
+        "Phase Detected",
+        "Creation Date",
+        "Owned By",
+        "Owner email",
+        "Impacted IOT",
+        "Severity",
+        "Story Points"
+      ]
+    },
+    {
+      "propEnumMap": {
+        "file_against": {
+          "values": [
+            "squad1",
+            "squad2",
+            "squad3",
+            "squad4",
+            "squad5 IW",
+            "squad6"
+          ],
+          "multiple": true
+        },
+        "application": {
+          "values": [
+            "ePricer",
+            "IW",
+            "ePricer mobile",
+            "iPat",
+            "Analytics"
+          ],
+          "multiple": false
+        },
+        "phase_detected": {
+          "values": [
+            "Production",
+            "Integration Testing",
+            "Regression Testing",
+            "User Acceptance Testing",
+            "COV Testing",
+            "Sanity Testing",
+            "Pre-Pod Testing"
+          ],
+          "multiple": false
+        },
+        "owned_by": {
+          "values": [
+            "Sanjib Dutta",
+            "Parul Rathi",
+            "Prashant Goel",
+            "Vikas Jain"
+          ],
+          "multiple": false
+        },
+        "impacted_IOT": {
+          "values": [
+            "AP/GCG",
+            "EMEA",
+            "Japan",
+            "LA",
+            "NA"
+          ],
+          "multiple": true
+        },
+        "severity": {
+          "values": [
+            "1-Critical",
+            "2-Major",
+            "3-Moderate",
+            "4-Minor"
+          ],
+          "multiple": false
+        },
+        "story_points": {
+          "values": [
+            "XS (1 pt)",
+            "S (2 pts)",
+            "M (3 pts)",
+            "L (5 pts)",
+            "XL (8 pts)",
+            "XXL (13 pts)",
+            "XXXL (21 pts)",
+            "QtrPts (110 pts)"
+          ],
+          "multiple": false
+        }
+      }
+    },
+    {
+      "requiredFields": [
+        "file_against",
+        "application",
+        "phase_detected",
+        "creation_date",
+        "owned_by",
+        "impacted_IOT",
+        "severity"
+      ]
+    },
+    {
+      "validators": {
+        "summary": {
+          "required": true,
+          "minLength": 20,
+          "maxLength": 100
+        },
+        "owner_email": {
+          "required": false,
+          "pattern": "[^ @]*@[^ @]*"
+        },
+        "file_against": {
+          "required": true
+        },
+        "application": {
+          "required": true
+        },
+        "phase_detected": {
+          "required": true
+        },
+        "creation_date": {
+          "required": true
+        },
+        "owned_by": {
+          "required": true
+        },
+        "impacted_IOT": {
+          "required": true
+        },
+        "severity": {
+          "required": true
+        }
+      }
+    }
+  ]
+}
