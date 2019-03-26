@@ -2,7 +2,7 @@ import { FormGroup, FormControl,Validators } from '@angular/forms';
 
 export class DynamicFormBuilder {
     
-    buildGroupFromAnyobject (anyObject: any, validOptions: Object[]):FormGroup {
+    buildGroupFromAnyobject (anyObject: any, validOptions: Object):FormGroup {
         var fControlsObect: any = new Object();
         Object.keys(anyObject).forEach((key)=>{
             

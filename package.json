@@ -8,7 +8,9 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-prod": "ng build --prod --aot",
+    "json-server": "json-server --watch src/db1.json"
   },
   "private": true,
   "dependencies": {

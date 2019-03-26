@@ -131,17 +131,6 @@
       }
     },
     {
-      "requiredFields": [
-        "file_against",
-        "application",
-        "phase_detected",
-        "creation_date",
-        "owned_by",
-        "impacted_IOT",
-        "severity"
-      ]
-    },
-    {
       "validators": {
         "summary": {
           "required": true,

@@ -259,8 +259,8 @@
                                   </div>
                                 </div>
                                 <div *ngIf="type(defaultToDo[key]) == 'boolean'">
-                                    <input type="radio" name="'new'+key" [value]="true" formControlName="{{key}}"> Yes
-                                    <input type="radio" name="'new'+key" [value]="false" formControlName="{{key}}"> No
+                                    <input type="radio" name="{{key}}" [value]="true" formControlName="{{key}}"> Yes
+                                    <input type="radio" name="{{key}}" [value]="false" formControlName="{{key}}"> No
                                 </div>
                                 <div *ngIf="type(defaultToDo[key].getMonth) === 'function'">
                                         

@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   propEnumMap: Object // = {depends_on_todo_ids: {values: [1,2,3,4,5,6,7,8,9,10], multiple: true},participants: {values: ['Geo leads','Squad team','E&C team','Product Owner','user','ES team','Iteration Manager'],multiple: true},priority: {values: [1, 2, 3,4], multiple: false},owner:{values: ['Sanjib Dutta','Parul Rathi','Prashant Goel','Vikas Jain'],multiple: false}};
   
   requiredFields: string[]
-  validators: Object[]
+  validators: Object;
   error: string;
   constructor(private store: Store<State>, private configService: ConfigService) {
 
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch({type: fromActions.LOAD_TODOS});
     
     this.store.select('todo').subscribe(state => {this.ToDoList = state.ToDoList; this.defaultToDo=this.initializeDefault(Object.assign({},state.ToDoList[0]));this.error = state.todoerror;});
-    this.configService.getConfig().subscribe((config)=>{this.columns=config[0].columns;this.propEnumMap=config[1].propEnumMap; this.validators=config[3].validators;})
+    this.configService.getConfig().subscribe((config)=>{this.columns=config[0].columns;this.propEnumMap=config[1].propEnumMap; this.validators=config[2].validators;})
     console.log("test"+ this.validators)
     //this.defaultToDo = {id: 0, description: '' , time_to_complete_days: 0, depends_on_todo_ids: [], participants: [],completed: false, priority: 1, owner: '', created: new Date(Date.now()) } ;
     //console.log(this.ToDoList[0]);

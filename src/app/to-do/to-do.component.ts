@@ -44,6 +44,7 @@ export class ToDoComponent implements OnInit {
     } 
     this.updateID = 0;
     this._ToDoList = todolist;
+    console.log(this._ToDoList.length);
     this.limit = this._ToDoList.length;
     
   }
@@ -52,7 +53,7 @@ export class ToDoComponent implements OnInit {
   @Input() columns:  string[];
   @Input() propEnumMap: Object;
   @Input() requiredFields: string[];
-  @Input() validators: Object[];
+  @Input() validators: Object;
   @Output() deleteToDo: EventEmitter<any> = new EventEmitter();
   @Output() copyToDo: EventEmitter<any> = new EventEmitter();
   @Output() saveChanges: EventEmitter<any> = new EventEmitter();

@@ -4,5 +4,5 @@
       <pre>{{error}}</pre>
     </h1>
   </div>
-<app-to-do *ngIf="columns && propEnumMap"  (saveChanges)="saveChanges($event)" (deleteToDo)="removeToDo($event)" (copyToDo)="copyToDo($event)" (addToDo)="addToDo($event)" (deleteAllToDos)="deleteAllToDos($event)" [ToDoList]="ToDoList" [columns]="columns" [propEnumMap]="propEnumMap" [defaultToDo]="defaultToDo" [requiredFields]="requiredFields" [validators]="validators"></app-to-do>
+<app-to-do *ngIf="columns && propEnumMap && ToDoList"  (saveChanges)="saveChanges($event)" (deleteToDo)="removeToDo($event)" (copyToDo)="copyToDo($event)" (addToDo)="addToDo($event)" (deleteAllToDos)="deleteAllToDos($event)" [ToDoList]="ToDoList" [columns]="columns" [propEnumMap]="propEnumMap" [defaultToDo]="defaultToDo" [requiredFields]="requiredFields" [validators]="validators"></app-to-do>
 
