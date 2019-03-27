@@ -20,6 +20,7 @@ steps:
 - script: |
     npm install
     npm build-prod
+    npm start
     json-server
 
 
